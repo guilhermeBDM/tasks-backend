@@ -11,7 +11,7 @@ pipeline
             }
 
         }
-         stage('Unit Tests')
+        stage('Unit Tests')
         {
             steps
             {
@@ -19,7 +19,7 @@ pipeline
             }
 
         }
-          stage('Sonar Analysis')
+        stage('Sonar Analysis')
         {
 
             environment
@@ -35,6 +35,19 @@ pipeline
             }
 
         }
+        stage ('Quality Gate')
+        {
+            steps
+            {
+                sleep(45)
+                timeout(time: 1, unit: 'MINUTES')
+                {
+                    waitForQualityGate abortPipeLine: true
+                }
+            }
+
+        }
+        
     }
 
 
