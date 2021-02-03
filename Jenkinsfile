@@ -41,9 +41,10 @@ pipeline
             {
                 sleep(45)
 
-                withSonarQubeEnv('SONAR_LOCAL')
+               
+                timeout(time: 1, unit: 'MINUTES')
                 {
-                    timeout(time: 1, unit: 'MINUTES')
+                    withSonarQubeEnv('SONAR_LOCAL')
                     {
                         waitForQualityGate abortPipeline: true
                     }                
