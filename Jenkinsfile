@@ -30,7 +30,8 @@ pipeline
             {
                 withSonarQubeEnv('SONAR_LOCAL')
                 {
-                    bat "cd C:/ && cd ${scannerHome}/bin/ && sonar-scanner -e -Dsonar.projectKey=DeployBack -Dsonar.host.url=http://localhost:9000 -Dsonar.login=6b0460253fdbb82147101b44a04ccacb43fb9c3f -Dsonar.java.binaries=target -Dsonar.coverage.exclusions=**/.mvn/**,**/src/test/**,**/model/**,**Application.java"
+                    bat "${scannerHome}/bin/sonar-scanner -e -Dsonar.projectKey=DeployBack -Dsonar.host.url=http://localhost:9000 -Dsonar.login=6b0460253fdbb82147101b44a04ccacb43fb9c3f -Dsonar.java.binaries=target -Dsonar.coverage.exclusions=**/.mvn/**,**/src/test/**,**/model/**,**Application.java"
+                    
                 }
             }
 
@@ -39,17 +40,16 @@ pipeline
         {
             steps
             {
-                withSonarQubeEnv('SONAR_LOCAL')
-                {
-                    sleep(45)
+              
+                sleep(45)
                 
-                    timeout(time: 1, unit: 'MINUTES')
-                    {
+                timeout(time: 1, unit: 'MINUTES')
+                {
                     
-                        waitForQualityGate abortPipeline: true
+                     waitForQualityGate abortPipeline: true
                                 
-                    }
                 }
+            
                
             }
 
