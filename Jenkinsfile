@@ -112,5 +112,19 @@ pipeline
             }
 
         }
+          stage ('Health Check')
+        {
+            steps
+            {
+                sleep(15)
+
+                dir('functional-test')
+                {
+                    bat 'mvn verify -Dskip.surefire.tests'
+
+                }
+
+            }
+        }
     }
 }
