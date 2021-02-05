@@ -75,7 +75,20 @@ pipeline
 
             }
         }
+        stage ('Deploy Frontend')
+        {
+            steps
+            {
+                dir('front-end')
+                {
+                    git 'https://github.com/guilhermeBDM/tasks-frontend'
+                    deploy adapters: [tomcat8(credentialsId: 'TomcatLogin', path: '', url: 'http://localhost:8001/')], contextPath: 'tasks', war: 'target/tasks.war'
+
+                }
+
+            }
+
+        }
+
     }
-
-
 }
